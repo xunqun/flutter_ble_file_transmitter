@@ -11,9 +11,5 @@ void main() {
 
 testCommand(){
 
-  var checksum = ByteTool.checkSum([0x00, 0x01]);
-  print(checksum);
-  var start = StartCommand(10);
-  var result = hex.encode(start.bytes);
-  print(result);
+
 }

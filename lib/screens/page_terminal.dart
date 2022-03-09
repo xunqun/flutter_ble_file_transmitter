@@ -14,6 +14,7 @@ class TerminalPage extends StatefulWidget {
 }
 
 class _TerminalPageState extends State<TerminalPage> {
+  String? error = null;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,13 +36,28 @@ class _TerminalPageState extends State<TerminalPage> {
         ],
       ),
       body: Container(
-        padding: const EdgeInsets.only(left: 16, right: 16),
         child: Column(
-          children: const [
+          children: [
             Expanded(child: LogList()),
-            TextField(
-              textInputAction: TextInputAction.send,
-              decoration: InputDecoration(border: OutlineInputBorder()),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              child: TextField(
+                textInputAction: TextInputAction.send,
+                decoration: InputDecoration(border: OutlineInputBorder(), hintText: '輸入16位元串，偶數個值', errorText: error),
+                onSubmitted: (s) {
+                  if (s.length.isEven) {
+                    List<int> data = [];
+                    for (int i = 0; i < s.length; i += 2) {
+                      data.add(int.parse(s.substring(i, i + 2), radix: 16));
+                    }
+                    logManager.addSendRaw(data, msg: 'RAW', desc: 'manual input');
+                    bleManager.write(data);
+                    error = null;
+                  }else{
+                    error = '須為16位元字串，偶數個值';
+                  }
+                },
+              ),
             )
           ],
         ),

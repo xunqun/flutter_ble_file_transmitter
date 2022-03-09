@@ -26,8 +26,8 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
             child: ListView.builder(itemBuilder: (c, i){
               var name = results[i].advertisementData.localName;
               var address = results[i].device.id.id;
-              if(name.length == 0){
-                name = 'unknow';
+              if(name.isEmpty){
+                name = '---';
               }
               return ListTile(
                 leading: const Icon(Icons.bluetooth),
