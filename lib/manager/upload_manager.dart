@@ -3,15 +3,16 @@ import 'dart:math';
 import 'package:ble_transmitter/command/out_command.dart';
 import 'package:ble_transmitter/manager/ble_mamanger.dart';
 import 'package:ble_transmitter/manager/log_manager.dart';
+import 'package:ble_transmitter/manager/settings.dart';
 
 var uploadManager = UploadManager();
 class UploadManager {
-  var data_segment_length = 500;
 
   Future<bool> startTask(List<int> data, String fileExt) async {
+
     var startTime = DateTime.now();
-    var segments = (data.length ~/ data_segment_length);
-    if (data.length % data_segment_length > 0) {
+    var segments = (data.length ~/ settings.dataLength);
+    if (data.length % settings.dataLength > 0) {
       segments += 1;
     }
     var bytes = StartCommand(segments, fileExt).bytes;
@@ -19,8 +20,8 @@ class UploadManager {
     var response = await bleManager.write(bytes);
     logManager.addReceiveRaw(response, msg: 'START ACK');
     for (int i = 0; i < segments; i++) {
-      var start = data_segment_length * i;
-      var end = min(start + data_segment_length - 1, data.length - 1);
+      var start = settings.dataLength * i;
+      var end = min(start + settings.dataLength - 1, data.length - 1);
       var dataSegment = data.sublist(start, end);
       bytes = DataCommand(dataSegment, i).bytes;
       logManager.addSendRaw(bytes, msg:'DATA COMMAND', desc: 'chunk $i');

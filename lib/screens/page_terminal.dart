@@ -15,6 +15,7 @@ class TerminalPage extends StatefulWidget {
 
 class _TerminalPageState extends State<TerminalPage> {
   String? error = null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +54,7 @@ class _TerminalPageState extends State<TerminalPage> {
                     logManager.addSendRaw(data, msg: 'RAW', desc: 'manual input');
                     bleManager.write(data);
                     error = null;
-                  }else{
+                  } else {
                     error = '須為16位元字串，偶數個值';
                   }
                 },
@@ -97,14 +98,24 @@ class _LogListState extends State<LogList> {
 
   Widget getSubtitle(Log log) {
     if (log.type == LogType.sendraw) {
-      return Text(
-        log.raw == null ? '' : log.raw!.map((e) => e.toRadixString(16).toUpperCase()).toList().toString(),
-        style: TextStyle(color: Colors.blue, fontSize: 14),
+      return Column(
+        children: [
+          Text('${log.raw!.length} bytes'),
+          Text(
+            log.raw == null ? '' : log.raw!.map((e) => e.toRadixString(16).toUpperCase()).toList().toString(),
+            style: TextStyle(color: Colors.blue, fontSize: 14),
+          ),
+        ],
       );
     } else if (log.type == LogType.receiveraw) {
-      return Text(
-        log.raw == null ? '' : log.raw!.map((e) => e.toRadixString(16)).toList().toString(),
-        style: TextStyle(color: Colors.green, fontSize: 14),
+      return Column(
+        children: [
+          Text('${log.raw!.length} bytes'),
+          Text(
+            log.raw == null ? '' : log.raw!.map((e) => e.toRadixString(16)).toList().toString(),
+            style: TextStyle(color: Colors.green, fontSize: 14),
+          ),
+        ],
       );
     } else {
       return Text('', style: TextStyle(fontSize: 14));

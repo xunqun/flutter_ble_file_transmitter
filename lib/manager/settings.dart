@@ -28,7 +28,7 @@ class Settings extends ChangeNotifier{
   }
 
   String get endByteString{
-    return pref?.getString('endByte') ?? 'ccdd';
+    return pref?.getString('endByte') ?? 'CCDD';
   }
 
   List<int> get endByte{
@@ -62,7 +62,7 @@ class Settings extends ChangeNotifier{
   }
 
   int get dataLength{
-    return pref?.getInt('dataLength') ?? 10;
+    return pref?.getInt('dataLength') ?? 128;
   }
 
   set dataLength(value){

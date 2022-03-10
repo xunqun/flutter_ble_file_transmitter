@@ -28,6 +28,9 @@ class ByteTool{
     return [];
   }
 
-  static Uint8List int32bytes(int value, int length) =>
-      Uint8List(4)..buffer.asByteData().setInt32(0, value)..sublist(4-length);
+  static Uint8List int32bytes(int value, int length) {
+    var bytes = Uint8List(4)..buffer.asByteData().setInt32(0, value);
+    return bytes.sublist(4-length);
+  }
+
 }

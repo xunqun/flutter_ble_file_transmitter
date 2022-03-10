@@ -1,14 +1,16 @@
 import 'dart:convert';
 
+import 'package:ble_transmitter/manager/settings.dart';
 import 'package:ble_transmitter/utils/byte_tool.dart';
 
 class StartCommand {
-  List<int> begin = [0xAA, 0xBB];
-  int length = 15;
-  List<int> word = ByteTool.stringToListIntWithSize(utf8.encode('Download'), 8);
+  List<int> begin = settings.beginByte;
+  List<int> end = settings.endByte;
+  List<int> word = ByteTool.stringToListIntWithSize(utf8.encode(settings.startWord), 8);
   List<int> type = ByteTool.stringToListIntWithSize(utf8.encode('wav'), 5);
+  int length = 15;
   int count = 0;
-  List<int> end = [0xCC, 0xDD];
+
 
   StartCommand(this.count, String fileExt) {
     type = ByteTool.stringToListIntWithSize(utf8.encode(fileExt), 5);
@@ -20,10 +22,11 @@ class StartCommand {
 }
 
 class EndCommand {
-  List<int> begin = [0xAA, 0xBB];
+  List<int> begin = settings.beginByte;
+  List<int> end = settings.endByte;
   int length = 8;
-  List<int> word = ByteTool.stringToListIntWithSize(utf8.encode('End'), 8);
-  List<int> end = [0xCC, 0xDD];
+  List<int> word = ByteTool.stringToListIntWithSize(utf8.encode(settings.endWord), 8);
+
 
   EndCommand();
 
@@ -33,9 +36,9 @@ class EndCommand {
 }
 
 class DataCommand {
-  List<int> begin = [0xAA, 0xBB];
-  List<int> end = [0xCC, 0xDD];
-  int length = 255;
+  List<int> begin = settings.beginByte;
+  List<int> end = settings.endByte;
+  int length = settings.dataLength;
   List<int> raw;
   int counter = 0;
 
