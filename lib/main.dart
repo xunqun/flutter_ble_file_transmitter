@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import 'manager/connect_state.dart';
+import 'manager/settings.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,7 +39,8 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider.value(value: connectState),
         ChangeNotifierProvider.value(value: scanResults),
-        ChangeNotifierProvider.value(value: logManager)
+        ChangeNotifierProvider.value(value: logManager),
+        ChangeNotifierProvider.value(value: settings)
       ],
       child: MaterialApp(
         title: 'BLE Transmitter',

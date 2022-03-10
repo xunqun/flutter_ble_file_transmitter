@@ -17,6 +17,17 @@ class ByteTool{
     return result;
   }
 
+  static List<int> hexStringToIntList(String s){
+    if (s.length.isEven) {
+      List<int> data = [];
+      for (int i = 0; i < s.length; i += 2) {
+        data.add(int.parse(s.substring(i, i + 2), radix: 16));
+      }
+      return data;
+    }
+    return [];
+  }
+
   static Uint8List int32bytes(int value, int length) =>
       Uint8List(4)..buffer.asByteData().setInt32(0, value)..sublist(4-length);
 }
