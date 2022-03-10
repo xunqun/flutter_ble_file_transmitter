@@ -27,7 +27,7 @@ class _FilePageState extends State<FilePage> {
             trailing: busy
                 ? CircularProgressIndicator()
                 : IconButton(
-                    icon: Icon(Icons.file_upload),
+                    icon: Icon(Icons.send_to_mobile),
                     onPressed: () {
                       setState(() {
                         busy = true;
@@ -43,7 +43,7 @@ class _FilePageState extends State<FilePage> {
             trailing: busy
                 ? CircularProgressIndicator()
                 : IconButton(
-                    icon: Icon(Icons.file_upload),
+                    icon: Icon(Icons.send_to_mobile),
                     onPressed: () {
                       setState(() {
                         busy = true;

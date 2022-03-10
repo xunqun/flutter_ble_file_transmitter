@@ -54,6 +54,7 @@ class BleManager extends ChangeNotifier {
   }
 
   disconnect(){
+    connectState.value = AppState.disconnected;
     _device?.disconnect();
   }
 

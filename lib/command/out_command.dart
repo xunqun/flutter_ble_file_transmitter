@@ -48,5 +48,5 @@ class DataCommand {
 
   int get checkSum => ByteTool.checkSum(raw + ByteTool.int32bytes(counter, 2));
 
-  get bytes => begin + ByteTool.int32bytes(length, 1) + raw + ByteTool.int32bytes(counter, 2) + ByteTool.int32bytes(checkSum, 1) + end;
+  get bytes => begin + ByteTool.int32bytes(raw.length, 1) + raw + ByteTool.int32bytes(counter, 2) + ByteTool.int32bytes(checkSum, 1) + end;
 }

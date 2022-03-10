@@ -4,7 +4,6 @@ import 'package:ble_transmitter/model/log.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/src/provider.dart';
-import 'package:convert/convert.dart';
 
 class TerminalPage extends StatefulWidget {
   const TerminalPage({Key? key}) : super(key: key);
@@ -14,16 +13,31 @@ class TerminalPage extends StatefulWidget {
 }
 
 class _TerminalPageState extends State<TerminalPage> {
+  final DateFormat dateFormatter = DateFormat('hh:mm:ss.SSS');
+  final ScrollController _controller = ScrollController();
   String? error = null;
 
   @override
   Widget build(BuildContext context) {
+    var logMgr = context.watch<LogManager>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Terminal'),
         actions: [
           IconButton(
-            icon: Icon(Icons.bluetooth_disabled),
+            icon: Icon(Icons.vertical_align_bottom),
+            onPressed: () {
+              scrollDown();
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.vertical_align_top),
+            onPressed: () {
+              scrollTop();
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.bluetooth_connected),
             onPressed: () {
               bleManager.disconnect();
             },
@@ -39,7 +53,21 @@ class _TerminalPageState extends State<TerminalPage> {
       body: Container(
         child: Column(
           children: [
-            Expanded(child: LogList()),
+            Expanded(child: ListView.builder(
+                controller: _controller,
+                itemCount: logMgr.count,
+                itemBuilder: (c, index) {
+                  var log = logMgr.list[index];
+                  final String time = dateFormatter.format(log.time);
+                  return ExpansionTile(
+                    title: ListTile(
+                      leading: Text(time),
+                      title: getTitle(log),
+                      subtitle: Text(log.description ?? ''),
+                    ),
+                    children: [getSubtitle(log)],
+                  );
+                })),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8.0),
               child: TextField(
@@ -64,36 +92,6 @@ class _TerminalPageState extends State<TerminalPage> {
         ),
       ),
     );
-  }
-}
-
-class LogList extends StatefulWidget {
-  const LogList({Key? key}) : super(key: key);
-
-  @override
-  _LogListState createState() => _LogListState();
-}
-
-class _LogListState extends State<LogList> {
-  final DateFormat dateFormatter = DateFormat('hh:mm:ss.SSS');
-
-  @override
-  Widget build(BuildContext context) {
-    var logMgr = context.watch<LogManager>();
-    return ListView.builder(
-        itemCount: logMgr.count,
-        itemBuilder: (c, index) {
-          var log = logMgr.list[index];
-          final String time = dateFormatter.format(log.time);
-          return ExpansionTile(
-            title: ListTile(
-              leading: Text(time),
-              title: getTitle(log),
-              subtitle: Text(log.description ?? ''),
-            ),
-            children: [getSubtitle(log)],
-          );
-        });
   }
 
   Widget getSubtitle(Log log) {
@@ -137,4 +135,13 @@ class _LogListState extends State<LogList> {
       return Text(log.title ?? '', style: TextStyle(fontSize: 14));
     }
   }
+
+  void scrollDown() {
+    _controller.jumpTo(_controller.position.maxScrollExtent);
+  }
+
+  void scrollTop(){
+    _controller.jumpTo(0);
+  }
 }
+

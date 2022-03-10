@@ -18,6 +18,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
     List<ScanResult> results = context.watch<ScanResults>().list;
     AppState state = context.watch<ConnectState>().value;
     return Scaffold(
+      backgroundColor: Colors.grey,
       appBar: AppBar(title: Text('Connect to device')),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

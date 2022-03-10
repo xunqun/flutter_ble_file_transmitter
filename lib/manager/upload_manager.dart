@@ -21,7 +21,7 @@ class UploadManager {
     logManager.addReceiveRaw(response, msg: 'START ACK');
     for (int i = 0; i < segments; i++) {
       var start = settings.dataLength * i;
-      var end = min(start + settings.dataLength - 1, data.length - 1);
+      var end = min(start + settings.dataLength, data.length);
       var dataSegment = data.sublist(start, end);
       bytes = DataCommand(dataSegment, i).bytes;
       logManager.addSendRaw(bytes, msg:'DATA COMMAND', desc: 'chunk $i');
