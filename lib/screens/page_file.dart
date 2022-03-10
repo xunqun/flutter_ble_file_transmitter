@@ -1,7 +1,7 @@
 import 'package:ble_transmitter/manager/upload_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+var busy = false;
 class FilePage extends StatefulWidget {
   const FilePage({Key? key}) : super(key: key);
 
@@ -10,7 +10,7 @@ class FilePage extends StatefulWidget {
 }
 
 class _FilePageState extends State<FilePage> {
-  var busy = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,23 @@ class _FilePageState extends State<FilePage> {
                       upload('assets/levelup.wav', 'wav');
                     },
                   ),
-          )
+          ),
+          ListTile(
+            leading: Icon(Icons.photo),
+            title: Text('android.png'),
+            subtitle: Text('2KB'),
+            trailing: busy
+                ? CircularProgressIndicator()
+                : IconButton(
+              icon: Icon(Icons.send_to_mobile),
+              onPressed: () {
+                setState(() {
+                  busy = true;
+                });
+                upload('assets/android.png', 'png');
+              },
+            ),
+          ),
         ],
       ),
     );

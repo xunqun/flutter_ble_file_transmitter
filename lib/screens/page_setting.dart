@@ -14,36 +14,46 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     var settings = context.watch<Settings>();
     return Scaffold(
-      appBar: AppBar(title: Text('Settings'),),
+      appBar: AppBar(
+        title: Text('Settings'),
+      ),
       body: ListView(
         children: [
           ListTile(
             title: Text('Begin byte'),
             subtitle: Text(settings.beginByteString),
-            onTap: (){
-              _displayTextInputDialog(context, 'Begin byte', settings.beginByteString).then((value) => settings.beginByte = value);
+            onTap: () {
+              _displayTextInputDialog(context, 'Begin byte', settings.beginByteString)
+                  .then((value) => settings.beginByte = value);
             },
           ),
           ListTile(
             title: Text('End byte'),
             subtitle: Text(settings.endByteString),
-            onTap: () => _displayTextInputDialog(context, 'End byte', settings.endByteString).then((value) => settings.endByte = value),
+            onTap: () => _displayTextInputDialog(context, 'End byte', settings.endByteString)
+                .then((value) => settings.endByte = value),
           ),
           ListTile(
             title: Text('Start word'),
             subtitle: Text(settings.startWord),
-            onTap: () => _displayTextInputDialog(context, 'Start word', settings.startWord).then((value) => settings.startWord = value),
+            onTap: () => _displayTextInputDialog(context, 'Start word', settings.startWord)
+                .then((value) => settings.startWord = value),
           ),
           ListTile(
             title: Text('End word'),
             subtitle: Text(settings.endWord),
-            onTap: () => _displayTextInputDialog(context, 'End word', settings.endWord).then((value) => settings.endWord = value),
+            onTap: () => _displayTextInputDialog(context, 'End word', settings.endWord)
+                .then((value) => settings.endWord = value),
           ),
           ListTile(
             title: Text('Data length'),
             subtitle: Text(settings.dataLength.toString()),
-            onTap: () => _displayTextInputDialog(context, 'Data length', settings.dataLength.toString()).then((value) => settings.dataLength = value),
-          ),
+            onTap: () => _displayTextInputDialog(context, 'Data length', settings.dataLength.toString()).then((value) {
+              if (value != null) {
+                settings.dataLength = int.parse(value);
+              }
+            }),
+          )
         ],
       ),
     );
@@ -74,7 +84,6 @@ class _SettingPageState extends State<SettingPage> {
                   });
                 },
               ),
-
             ],
           );
         });

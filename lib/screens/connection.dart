@@ -1,4 +1,3 @@
-import 'package:ble_transmitter/constant/constant.dart';
 import 'package:ble_transmitter/manager/ble_mamanger.dart';
 import 'package:ble_transmitter/manager/connect_state.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +35,6 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                 subtitle: Text(address),
                 onTap: (){
                   results[i].device.connect().then((value){
-                    connectState.value = AppState.connected;
                     bleManager.device = results[i].device;
                   });
                   
@@ -56,7 +54,6 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
               ),
             ),
           ),
-
         ],
       ),
     );
