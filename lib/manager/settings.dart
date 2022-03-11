@@ -62,7 +62,7 @@ class Settings extends ChangeNotifier{
   }
 
   int get dataLength{
-    return pref?.getInt('dataLength') ?? 500;
+    return pref?.getInt('dataLength') ?? 253;
   }
 
   set dataLength(int value){

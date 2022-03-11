@@ -43,7 +43,7 @@ class DataCommand {
   int counter = 0;
 
   DataCommand(this.raw, this.counter) {
-    length = raw.length;
+    length = raw.length + 2; // counter length = 2
   }
 
   int get checkSum => ByteTool.checkSum(raw + ByteTool.int32bytes(counter, 2));

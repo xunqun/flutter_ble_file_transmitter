@@ -50,7 +50,16 @@ class _SettingPageState extends State<SettingPage> {
             subtitle: Text(settings.dataLength.toString()),
             onTap: () => _displayTextInputDialog(context, 'Data length', settings.dataLength.toString()).then((value) {
               if (value != null) {
-                settings.dataLength = int.parse(value);
+                var v = int.parse(value);
+                if(v > 0 && v <= 253) {
+                  settings.dataLength = v;
+                }else{
+                  const snackBar = SnackBar(
+                    content: Text('數字不能大於253'),
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
               }
             }),
           )

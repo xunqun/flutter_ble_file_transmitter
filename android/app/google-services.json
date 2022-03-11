@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "600909326662",
+    "project_id": "ble-transmitter",
+    "storage_bucket": "ble-transmitter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600909326662:android:a2c10f96a5a1153c5ddd47",
+        "android_client_info": {
+          "package_name": "com.koso.ble_transmitter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "600909326662-on6ljqf6e738kkfppa4u15jmjvso32hj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.koso.ble_transmitter",
+            "certificate_hash": "99a1d6760fb88b2dbba7596f20be1df2fc570f10"
+          }
+        },
+        {
+          "client_id": "600909326662-70nn0hu70fucbadutn7sc9kgs8r573o5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeM7C7NEageE-cIfSu-delW23Fgn7hJ9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "600909326662-70nn0hu70fucbadutn7sc9kgs8r573o5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
